@@ -1,6 +1,8 @@
 """Suvery setup"""
 
+
 import os
+from utils import create_file_safely
 
 
 class Question:
@@ -83,13 +85,13 @@ class Survey:
     def save(self):
         """Save survey to a file"""
         file_path = os.path.join(self.SURVEY_DIRECTORY, f"{self.survey_title}.survey")
-        
+        create_file_safely(file_path)
         for question in self.questions:
             question.save_question_to_file(file_path)
 
     def print(self):
         """Print out survey to terminal"""
-        
+
         print(self.survey_title)
         for idx, question in enumerate(self.questions):
             print ("\n")

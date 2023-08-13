@@ -38,3 +38,4 @@ def create_survey():
     for _ in range(num_questions):
         survey.add_question(create_question())
     survey.print()
+    survey.save()
