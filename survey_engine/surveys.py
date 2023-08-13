@@ -2,7 +2,8 @@
 
 
 import os
-from utils import create_file_safely
+
+from survey_engine.utils import create_file_safely
 
 
 class Question:
