@@ -1,11 +1,14 @@
 """Suvery setup"""
 
+import os
+
 
 class Question:
     """Encode objects"""
 
     def __init__(self, question_text):
-        """Initialize variables
+        """
+        Initialize variables
 
         Parameters
         ----------
@@ -16,7 +19,8 @@ class Question:
         self.response_options = None
 
     def add_response_option(self, options):
-        """add response options to the question
+        """
+        Add response options to the question
 
         Parameters
         ----------
@@ -24,6 +28,18 @@ class Question:
             response options
         """
         self.response_options = options
+
+    def save_question_to_file(self, file_path):
+        """
+        Save question to a selected file
+
+        Parameters
+        ----------
+        file_path : str
+            path where the survey question should be saved
+        """
+        with open(file_path, "a", encoding="utf8") as file:
+            file.write(f"{self.question_text};{','.join(self.response_options)}\n")
 
     def print(self, question_id=1):
         """print question in a terminal"""
@@ -35,6 +51,9 @@ class Question:
 
 class Survey:
     """Encode survey object"""
+
+    SURVEY_DIRECTORY = "data/"  # Path where survey question should be saved
+
     def __init__(self, title, num_questions=1):
         """Initialize variables
 
@@ -61,8 +80,16 @@ class Survey:
         if len(self.questions) < self.num_questions:
             self.questions.append(question)
 
+    def save(self):
+        """Save survey to a file"""
+        file_path = os.path.join(self.SURVEY_DIRECTORY, f"{self.survey_title}.survey")
+        
+        for question in self.questions:
+            question.save_question_to_file(file_path)
+
     def print(self):
         """Print out survey to terminal"""
+        
         print(self.survey_title)
         for idx, question in enumerate(self.questions):
             print ("\n")
