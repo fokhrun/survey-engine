@@ -25,9 +25,9 @@ class Question:
         """
         self.response_options = options
 
-    def print_question(self):
+    def print(self):
         """print question in a terminal"""
         print(self.question_text)
-        if not self.response_options:
+        if self.response_options: 
             for idx, choice in enumerate(self.response_options, start=1):
                 print(f"{idx}. {choice}")
