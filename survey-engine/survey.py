@@ -15,7 +15,7 @@ class Question:
         self.question_text = question_text
         self.response_options = []
 
-    def add_response_options(self, options: list[any]):
+    def add_response_option(self, option: list[any]):
         """add response options to the question
 
         Parameters
@@ -23,4 +23,4 @@ class Question:
         options : list[any]
             response options
         """
-        self.response_options = options
+        self.response_options.append(option)
