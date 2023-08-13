@@ -9,7 +9,7 @@ from survey_engine.utils import create_file_safely
 class Question:
     """Encode objects"""
 
-    def __init__(self, question_text):
+    def __init__(self, question_text, options=None):
         """
         Initialize variables
 
@@ -17,9 +17,11 @@ class Question:
         ----------
         question_text : str
             question in text format
+        options : list
+            response options, default to None
         """
         self.question_text = question_text
-        self.response_options = None
+        self.response_options = options if not options else []
 
     def add_response_option(self, options):
         """
@@ -55,7 +57,7 @@ class Question:
 class Survey:
     """Encode survey object"""
 
-    SURVEY_DIRECTORY = "data/"  # Path where survey question should be saved
+    SURVEY_DIRECTORY = "data"  # Path where survey question should be saved
 
     def __init__(self, title, num_questions=1):
         """Initialize variables
@@ -85,7 +87,7 @@ class Survey:
 
     def save(self):
         """Save survey to a file"""
-        file_path = os.path.join(self.SURVEY_DIRECTORY, f"{self.survey_title}.survey")
+        file_path = os.path.join(self.SURVEY_DIRECTORY, f"{self.survey_title}_{len(self.questions)}.survey")
         create_file_safely(file_path)
         for question in self.questions:
             question.save_question_to_file(file_path)

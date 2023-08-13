@@ -21,6 +21,7 @@ A couple of sentence how users can interact with the app
 ## Bugs
 
 - Path to save survey data is hardcoded
+- Survey files should have .survey extensions. No mechanism exists to enforce that.
 
 ### Solved bugs
 

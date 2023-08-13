@@ -20,3 +20,22 @@ def create_file_safely(file_path):
             pass
     except FileExistsError:
         pass
+
+
+def get_filename_without_extension(filename, file_extension=".survey"):
+    """For files of the pattern name.ext, get the name part. 
+
+    Parameters
+    ----------
+    filename : str
+        Has the expected format name.ext 
+    file_extension : str
+        extension string, by default ".survey"
+
+    Returns
+    -------
+    str
+        returns the name part of a filename
+    """
+    name_wo_extension, _ = filename.split(file_extension)
+    return name_wo_extension
