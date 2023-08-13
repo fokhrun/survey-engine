@@ -2,7 +2,25 @@
 
 
 class Question:
-    def __init__(self, question_text: str):
+    """Encode objects"""
 
+    def __init__(self, question_text: str):
+        """Initialize variables
+
+        Parameters
+        ----------
+        question_text : str
+            question in text format
+        """
         self.question_text = question_text
         self.response_options = []
+
+    def add_response_options(self, options: list[any]):
+        """add response options to the question
+
+        Parameters
+        ----------
+        options : list[any]
+            response options
+        """
+        self.response_options = options
