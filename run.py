@@ -5,4 +5,4 @@
 from survey_engine import create_survey
 
 if __name__ == "__main__":
-    create_survey.create_question()
+    create_survey.create_survey()
