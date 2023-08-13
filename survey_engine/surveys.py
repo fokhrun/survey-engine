@@ -1,10 +1,10 @@
-# module for suvery setup
+"""Suvery setup"""
 
 
 class Question:
     """Encode objects"""
 
-    def __init__(self, question_text: str):
+    def __init__(self, question_text):
         """Initialize variables
 
         Parameters
@@ -15,7 +15,7 @@ class Question:
         self.question_text = question_text
         self.response_options = None
 
-    def add_response_option(self, options: list[int or str]):
+    def add_response_option(self, options):
         """add response options to the question
 
         Parameters
@@ -34,16 +34,35 @@ class Question:
 
 
 class Survey:
-    def __init__(self, title, num_questions):
+    """Encode survey object"""
+    def __init__(self, title, num_questions=1):
+        """Initialize variables
+
+        Parameters
+        ----------
+        title : str
+            Survey title
+        num_questions : int
+            number of questions in the survey, by default 1
+        """
         self.survey_title = title
         self.num_questions = num_questions
         self.questions = []  # start with empty questions
 
-    def add_question(self, question: Question):
+    def add_question(self, question):
+        """
+        Add question to survey
+
+        Parameters
+        ----------
+        question : Question
+            question to add in the survey
+        """
         if len(self.questions) < self.num_questions:
             self.questions.append(question)
 
     def print(self):
+        """Print out survey to terminal"""
         print(self.survey_title)
         print (len(self.questions))
         for idx, question in enumerate(self.questions):
