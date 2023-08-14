@@ -7,7 +7,8 @@ from survey_engine import utils
 
 def create_file_safely(file_path, remove_if_exists=True):
     """
-    Create a file if it does not exists. Remove if the file exists and then create it again.
+    Create a file if it does not exists. 
+    Remove if the file exists and then create it again.
 
     Parameters
     ----------

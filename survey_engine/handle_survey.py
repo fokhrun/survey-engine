@@ -67,18 +67,19 @@ def load_survey(file_path="data", survey_extension=".survey"):
         print (f"{idx + 1}. {utils.get_filename_without_extension(filename)}")
 
     survey_filename = survey_names[int(input("Choose survey: "))-1]
-    survey = surveys.Survey(utils.get_filename_without_extension(survey_filename))
+    survey = surveys.Survey(
+        utils.get_filename_without_extension(survey_filename)
+    )
 
-    with open(os.path.join(file_path, survey_filename), "r", encoding="utf") as file:
+    name = os.path.join(file_path, survey_filename)
+    with open(name, "r", encoding="utf") as file:
+        
         for row in file:
             row = row.strip("\n").split(";")
-
             survey.add_question(
                 surveys.Question(
                     question_text=row[0].strip(),
-                    options=[
-                        _.strip() for _ in row[1].split(",")
-                    ]
+                    options=[_.strip() for _ in row[1].split(",")]
                 )
             )
 
@@ -141,8 +142,11 @@ def run_survey(get_statistics=True):
         valid_range = range(1, len(question.response_options)+1)
         option = safe_input(valid_range)
         if not option:
-            return 
-        resp_obj.add_question_option(question_text=question.question_text, option=option)
+            return
+        resp_obj.add_question_option(
+            question_text=question.question_text, 
+            option=option
+        )
     resp_obj.save_responses()
     if get_statistics:
         resp_obj.analyze_responses()

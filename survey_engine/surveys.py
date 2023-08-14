@@ -43,7 +43,9 @@ class Question:
             path where the survey question should be saved
         """
         with open(file_path, "a", encoding="utf8") as file:
-            file.write(f"{self.question_text};{','.join(self.response_options)}\n")
+            file.write(
+                f"{self.question_text};{','.join(self.response_options)}\n"
+            )
 
     def print(self, question_id=1):
         """print question in a terminal"""
@@ -84,7 +86,7 @@ class Survey:
         filename = utils.convert_filename(self.survey_title)
         file_path = os.path.join(
             constants.SURVEY_DIRECTORY, 
-            f"{filename}_{len(self.questions)}.survey"
+            f"{filename}_{len(self.questions)}{constants.SURVEY_FILE_EXT}"
         )
         utils.create_file_safely(file_path)
 

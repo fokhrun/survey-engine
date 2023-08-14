@@ -1,7 +1,4 @@
-"""
-Utitlity methods calculating interquantile statistics
-for the survey responses
-"""
+"""Utitlity methods calculating interquantile stats for survey response"""
 
 def calculate_quantiles(values=None):
     """

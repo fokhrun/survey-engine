@@ -1,8 +1,12 @@
 
+"""Execute the app"""
+
 from survey_engine import handle_survey
 
+
 def menu():
-    while True:
+    """Main menu"""
+    while True:  # Keep running the app
         print ()
         print ("Survey Engine")
         print ("-------------")
