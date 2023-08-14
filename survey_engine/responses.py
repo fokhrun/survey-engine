@@ -69,6 +69,7 @@ class Responses:
         """
         with open(self.filename, "r", encoding="utf") as csvfile:
             response = list(csv.DictReader(csvfile, fieldnames=self.FIELDNAMES))
+        
         responses = {}        
         for _ in response:
             question = _[self.FIELDNAMES[0]]
@@ -85,6 +86,7 @@ class Responses:
         """Analyze responses in quartiles"""
 
         responses = self.load_responses()
+
         for question_option in self.question_options:
             values = responses[question_option.question]
             option = question_option.option

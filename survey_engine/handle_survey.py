@@ -2,10 +2,7 @@
 
 
 import os
-from survey_engine import surveys, responses, utils
-
-
-MAX_QUESTIONS = 5
+from survey_engine import constants, responses, surveys, utils
 
 
 def create_question():
@@ -35,17 +32,23 @@ def create_survey():
     survey_title = input("Enter survey title: ")
     num_questions = int(input("Enter number of questions: "))
     survey = surveys.Survey(survey_title)
-    if num_questions > MAX_QUESTIONS:
-        raise ValueError(f"You must chooise {MAX_QUESTIONS} or less")
+
+    if num_questions > constants.MAX_QUESTIONS:
+        raise ValueError(
+            f"You must chooise {constants.MAX_QUESTIONS} or less"
+        )
+
     for _ in range(num_questions):
         survey.add_question(create_question())
+
     survey.print()
     print ()
     survey.save()
 
 
-def load_survey(file_path="data", survey_extension=".survey"):
-    """_summary_
+def load_survey(file_path="data"):
+    """
+    Load saved surveys
 
     Parameters
     ----------
@@ -60,7 +63,7 @@ def load_survey(file_path="data", survey_extension=".survey"):
     """
     survey_names = [
         _ for _ in os.listdir(file_path)
-        if survey_extension in _
+        if constants.SURVEY_FILE_EXT in _
     ]
 
     for idx, filename in enumerate(survey_names):
@@ -73,7 +76,7 @@ def load_survey(file_path="data", survey_extension=".survey"):
 
     name = os.path.join(file_path, survey_filename)
     with open(name, "r", encoding="utf") as file:
-        
+
         for row in file:
             row = row.strip("\n").split(";")
             survey.add_question(
@@ -105,6 +108,8 @@ def safe_input(valid_range, num_retries=3):
     """
     error_text_terminate = "You have no more trials left. Exiting...!"
 
+    option = None
+
     for attempt_no in range(num_retries):
         option = int(input("Enter your choice: "))
 
@@ -117,8 +122,11 @@ def safe_input(valid_range, num_retries=3):
 
             error_text = f"You have {remaining_trials} more trials!"
             print (f"Not a valid option. Please try again! {error_text}")
+
         else:
             return option
+
+    return option
 
 
 def run_survey(get_statistics=True):
@@ -144,10 +152,13 @@ def run_survey(get_statistics=True):
         if not option:
             return
         resp_obj.add_question_option(
-            question_text=question.question_text, 
+            question_text=question.question_text,
             option=option
         )
+
     resp_obj.save_responses()
+
     if get_statistics:
         resp_obj.analyze_responses()
+
     print ()
