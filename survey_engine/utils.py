@@ -4,7 +4,7 @@
 import os
 
 
-def create_file_safely(file_path):
+def create_file_safely(file_path, remove_if_exists=True):
     """
     Create a file if it does not exists. Remove if the file exists and then create it again.
 
@@ -13,7 +13,7 @@ def create_file_safely(file_path):
     file_path : str
         location to create the file
     """
-    if os.path.exists(file_path):
+    if os.path.exists(file_path) and remove_if_exists:
         os.remove(file_path)
     try:
         with open(file_path, "x", encoding="utf8"):

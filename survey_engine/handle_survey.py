@@ -1,7 +1,6 @@
 """ Create surveys """
 
 
-import csv
 import os
 from survey_engine import surveys, responses, utils
 
@@ -34,7 +33,7 @@ def create_survey():
     """
     survey_title = input("Enter survey title: ")
     num_questions = int(input("Enter number of questions: "))
-    survey = surveys.Survey(title=survey_title, num_questions=num_questions)
+    survey = surveys.Survey(survey_title)
     if num_questions > MAX_QUESTIONS:
         raise ValueError(f"You must chooise {MAX_QUESTIONS} or less")
     for _ in range(num_questions):
@@ -43,7 +42,7 @@ def create_survey():
     survey.save()
 
 
-def load_survey(file_path="data", file_extension=".survey"):
+def load_survey(file_path="data", survey_extension=".survey"):
     """_summary_
 
     Parameters
@@ -57,13 +56,17 @@ def load_survey(file_path="data", file_extension=".survey"):
     -------
         Survey
     """
-    survey_names = os.listdir(file_path)
+    survey_names = [
+        _ for _ in os.listdir(file_path) 
+        if survey_extension in _
+    ]
+
     for idx, filename in enumerate(survey_names):
         print (f"{idx + 1}. {utils.get_filename_without_extension(filename)}")
 
     survey_filename = survey_names[int(input("Choose survey: "))-1]
     survey = surveys.Survey(utils.get_filename_without_extension(survey_filename))
-    
+
     with open(os.path.join(file_path, survey_filename), "r", encoding="utf") as file:
         for row in file:
             row = row.strip("\n").split(";")
@@ -91,6 +94,6 @@ def run_survey():
         
         valid_range = range(1, len(question.response_options)+1)
         option = int(input("Enter your choice: "))
-        print (f"chosen option {option}")
 
-
+        resp_obj.add_question_option(question_text=question.question_text, option=option)
+    resp_obj.save_responses()
