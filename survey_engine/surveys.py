@@ -21,7 +21,7 @@ class Question:
             response options, default to None
         """
         self.question_text = question_text
-        self.response_options = options if not options else []
+        self.response_options = [] if not options else options
 
     def add_response_option(self, options):
         """
@@ -59,18 +59,15 @@ class Survey:
 
     SURVEY_DIRECTORY = "data"  # Path where survey question should be saved
 
-    def __init__(self, title, num_questions=1):
+    def __init__(self, title):
         """Initialize variables
 
         Parameters
         ----------
         title : str
             Survey title
-        num_questions : int
-            number of questions in the survey, by default 1
         """
         self.survey_title = title
-        self.num_questions = num_questions
         self.questions = []  # start with empty questions
 
     def add_question(self, question):
@@ -82,12 +79,14 @@ class Survey:
         question : Question
             question to add in the survey
         """
-        if len(self.questions) < self.num_questions:
-            self.questions.append(question)
+        self.questions.append(question)
 
     def save(self):
         """Save survey to a file"""
-        file_path = os.path.join(self.SURVEY_DIRECTORY, f"{self.survey_title}_{len(self.questions)}.survey")
+        file_path = os.path.join(
+            self.SURVEY_DIRECTORY, 
+            f"{self.survey_title}_{len(self.questions)}.survey"
+        )
         create_file_safely(file_path)
         for question in self.questions:
             question.save_question_to_file(file_path)

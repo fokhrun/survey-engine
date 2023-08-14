@@ -3,7 +3,7 @@
 
 import csv
 import os
-from survey_engine import surveys, utils
+from survey_engine import surveys, responses, utils
 
 
 MAX_QUESTIONS = 5
@@ -63,10 +63,11 @@ def load_survey(file_path="data", file_extension=".survey"):
 
     survey_filename = survey_names[int(input("Choose survey: "))-1]
     survey = surveys.Survey(utils.get_filename_without_extension(survey_filename))
-
+    
     with open(os.path.join(file_path, survey_filename), "r", encoding="utf") as file:
-        reader = csv.reader(file, delimiter=";")
-        for row in reader:
+        for row in file:
+            row = row.strip("\n").split(";")
+            print (row)
             survey.add_question(
                 surveys.Question(
                     question_text=row[0].strip(),
@@ -82,3 +83,6 @@ def load_survey(file_path="data", file_extension=".survey"):
 def run_survey():
     survey = load_survey()
     print(f"Welcome to the {survey.survey_title}!")
+    resp_obj = responses.Responses(survey)
+    survey.print()
+
