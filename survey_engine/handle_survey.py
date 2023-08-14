@@ -31,6 +31,7 @@ def create_survey():
         if number of questions chosen by a user is larger 
         than a recommended limit
     """
+    print ()
     survey_title = input("Enter survey title: ")
     num_questions = int(input("Enter number of questions: "))
     survey = surveys.Survey(survey_title)
@@ -39,6 +40,7 @@ def create_survey():
     for _ in range(num_questions):
         survey.add_question(create_question())
     survey.print()
+    print ()
     survey.save()
 
 
@@ -57,7 +59,7 @@ def load_survey(file_path="data", survey_extension=".survey"):
         Survey
     """
     survey_names = [
-        _ for _ in os.listdir(file_path) 
+        _ for _ in os.listdir(file_path)
         if survey_extension in _
     ]
 
@@ -100,17 +102,17 @@ def safe_input(valid_range, num_retries=3):
     Returns:
         int
     """
-    error_text_terminate = "You have no more trials left. Terminating...!"
+    error_text_terminate = "You have no more trials left. Exiting...!"
 
     for attempt_no in range(num_retries):
         option = int(input("Enter your choice: "))
 
         if option not in valid_range:
-            option = None
             remaining_trials = num_retries-attempt_no-1
 
             if remaining_trials == 0:
-                raise ValueError(error_text_terminate)
+                print (error_text_terminate)
+                return None
 
             error_text = f"You have {remaining_trials} more trials!"
             print (f"Not a valid option. Please try again! {error_text}")
@@ -128,6 +130,7 @@ def run_survey(get_statistics=True):
         enable statistics calculation for survey response
         defaults to True
     """
+    print ()
     survey = load_survey()
 
     print(f"Welcome to the {survey.survey_title}!")
@@ -137,7 +140,10 @@ def run_survey(get_statistics=True):
         question.print(question_id=idx)
         valid_range = range(1, len(question.response_options)+1)
         option = safe_input(valid_range)
+        if not option:
+            return 
         resp_obj.add_question_option(question_text=question.question_text, option=option)
     resp_obj.save_responses()
     if get_statistics:
         resp_obj.analyze_responses()
+    print ()
