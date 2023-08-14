@@ -83,17 +83,55 @@ def load_survey(file_path="data", survey_extension=".survey"):
     return survey
 
 
+def safe_input(valid_range, num_retries=3):
+    """
+    Handles incorrectly provided options
+
+    Parameters
+    ----------
+    valid_range : list 
+        range of values for valid options
+    num_retries : int 
+        number of times a wrong option can be provided. Defaults to 3.
+
+    Raises:
+        ValueError: if wrong option is provided
+
+    Returns:
+        int
+    """
+    error_text_terminate = "You have no more trials left. Terminating...!"
+                
+    for attempt_no in range(num_retries):
+        option = int(input("Enter your choice: "))
+        if option not in valid_range:
+            option = None
+            remaining_trials = num_retries-attempt_no-1
+            if remaining_trials == 0:
+                raise ValueError(error_text_terminate)
+            else:
+                error_text = f"You have {remaining_trials} more trials!"
+                print (f"Not a valid option. Please try again! {error_text}")
+        else:
+            return option
+
+
 def run_survey():
+    """
+    Run survey
+
+    Raises
+    ------
+    ValueError
+        _description_
+    """
     survey = load_survey()
     print(f"Welcome to the {survey.survey_title}!")
     resp_obj = responses.Responses(survey)
-    
+
     for idx, question in enumerate(survey.questions, start=1):
         question.print(question_id=idx)
-        option_range = enumerate(question.response_options, start=1)
-        
         valid_range = range(1, len(question.response_options)+1)
-        option = int(input("Enter your choice: "))
-
+        option = safe_input(valid_range)
         resp_obj.add_question_option(question_text=question.question_text, option=option)
     resp_obj.save_responses()
