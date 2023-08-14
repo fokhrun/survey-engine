@@ -69,7 +69,6 @@ class Responses:
         """
         with open(self.filename, "r", encoding="utf") as csvfile:
             response = list(csv.DictReader(csvfile, fieldnames=self.FIELDNAMES))
-        print (response)
         responses = {}        
         for _ in response:
             question = _[self.FIELDNAMES[0]]
