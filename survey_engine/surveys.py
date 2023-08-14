@@ -100,3 +100,4 @@ class Survey:
         for idx, question in enumerate(self.questions):
             print ("\n")
             question.print(question_id=idx+1)
+            print ()
