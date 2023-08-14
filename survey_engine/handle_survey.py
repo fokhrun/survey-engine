@@ -67,7 +67,7 @@ def load_survey(file_path="data", file_extension=".survey"):
     with open(os.path.join(file_path, survey_filename), "r", encoding="utf") as file:
         for row in file:
             row = row.strip("\n").split(";")
-            print (row)
+
             survey.add_question(
                 surveys.Question(
                     question_text=row[0].strip(),
@@ -84,5 +84,13 @@ def run_survey():
     survey = load_survey()
     print(f"Welcome to the {survey.survey_title}!")
     resp_obj = responses.Responses(survey)
-    survey.print()
+    
+    for idx, question in enumerate(survey.questions, start=1):
+        question.print(question_id=idx)
+        option_range = enumerate(question.response_options, start=1)
+        
+        valid_range = range(1, len(question.response_options)+1)
+        option = int(input("Enter your choice: "))
+        print (f"chosen option {option}")
+
 
