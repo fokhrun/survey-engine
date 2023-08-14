@@ -2,6 +2,7 @@
 """Utility functions"""
 
 import os
+from survey_engine import utils
 
 
 def create_file_safely(file_path, remove_if_exists=True):
@@ -38,4 +39,29 @@ def get_filename_without_extension(filename, file_extension=".survey"):
         returns the name part of a filename
     """
     name_wo_extension, _ = filename.split(file_extension)
-    return name_wo_extension
+    name = utils.convert_filename(name_wo_extension, file_or_console=False)
+    return name
+
+
+def convert_filename(name, file_or_console=True):
+    """
+    Convert names with whitespaces to _ separated names and vice versa
+
+    Parameters
+    ----------
+    name : str
+        target name
+    file_or_console : bool, optional
+        deciding if the name is for filename or console name, 
+        by default True indicating filename
+
+    Returns
+    -------
+    str
+        changed name
+    """
+    if file_or_console:  # change to _ separated variable for filename
+        changed_name = "_".join(name.split())
+    else:  # change to whitespace separated variable for console
+        changed_name = " ".join(_.capitalize() for _ in name.split("_"))
+    return changed_name

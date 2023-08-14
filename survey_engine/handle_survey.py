@@ -101,23 +101,33 @@ def safe_input(valid_range, num_retries=3):
         int
     """
     error_text_terminate = "You have no more trials left. Terminating...!"
-                
+
     for attempt_no in range(num_retries):
         option = int(input("Enter your choice: "))
+
         if option not in valid_range:
             option = None
             remaining_trials = num_retries-attempt_no-1
+
             if remaining_trials == 0:
                 raise ValueError(error_text_terminate)
-            else:
-                error_text = f"You have {remaining_trials} more trials!"
-                print (f"Not a valid option. Please try again! {error_text}")
+
+            error_text = f"You have {remaining_trials} more trials!"
+            print (f"Not a valid option. Please try again! {error_text}")
         else:
             return option
 
 
-def run_survey():
-    """Run survey"""
+def run_survey(get_statistics=True):
+    """
+    Run survey
+    
+    Parameters
+    ----------
+    get_statistics : bool
+        enable statistics calculation for survey response
+        defaults to True
+    """
     survey = load_survey()
 
     print(f"Welcome to the {survey.survey_title}!")
@@ -129,4 +139,5 @@ def run_survey():
         option = safe_input(valid_range)
         resp_obj.add_question_option(question_text=question.question_text, option=option)
     resp_obj.save_responses()
-    resp_obj.analyze_responses()
+    if get_statistics:
+        resp_obj.analyze_responses()

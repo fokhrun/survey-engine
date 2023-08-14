@@ -3,7 +3,7 @@
 
 import os
 
-from survey_engine.utils import create_file_safely
+from survey_engine.utils import create_file_safely, utils
 
 
 class Question:
@@ -83,9 +83,10 @@ class Survey:
 
     def save(self):
         """Save survey to a file"""
+        filename = utils.convert_filename(self.survey_title)
         file_path = os.path.join(
             self.SURVEY_DIRECTORY, 
-            f"{self.survey_title}_{len(self.questions)}.survey"
+            f"{filename}_{len(self.questions)}.survey"
         )
         create_file_safely(file_path)
         for question in self.questions:
