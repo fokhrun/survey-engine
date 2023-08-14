@@ -4,7 +4,7 @@
 import csv
 import os
 from dataclasses import dataclass
-from survey_engine import utils
+from survey_engine import statistics, utils
 
 
 @dataclass
@@ -56,3 +56,46 @@ class Responses:
 
         with open(self.filename, "a", encoding="utf") as file:
             file.write(text)
+
+    def load_responses(self):
+        """
+        Read saved responses
+
+        Returns
+        -------
+            Response : Response encoded from csv file
+        """
+        with open(self.filename, "r", encoding="utf") as csvfile:
+            response = list(csv.DictReader(csvfile, fieldnames=self.FIELDNAMES))
+        print (response)
+        responses = {}        
+        for _ in response:
+            question = _["Question"]
+            response = int(_["Response"])
+
+            if question not in responses:
+                responses[question] = [response]
+            else:
+                responses[question].append(response)
+
+        return responses
+
+    def analyze_responses(self):
+        """Analyze responses in quartiles"""
+
+        responses = self.load_responses()
+        for question_option in self.question_options:
+            question = question_option.question
+            option = question_option.option
+            quant1, median, quant3 = statistics.calculate_quantiles(responses[question])
+            position = statistics.determine_position_in_quantiles(
+                response=option,
+                quantiles=(quant1, median, quant3)
+            )
+
+            print("Quantile Analysis:")
+            print(f"25th Percentile: {quant1}")
+            print(f"50th Percentile (Median): {median}")
+            print(f"75th Percentile: {quant3}")
+            print(f"Current Response: {option}")
+            print(f"Position: {position}")

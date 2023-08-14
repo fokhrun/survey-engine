@@ -1,4 +1,4 @@
-""" Create surveys """
+""" Manage surveys """
 
 
 import os
@@ -117,15 +117,9 @@ def safe_input(valid_range, num_retries=3):
 
 
 def run_survey():
-    """
-    Run survey
-
-    Raises
-    ------
-    ValueError
-        _description_
-    """
+    """Run survey"""
     survey = load_survey()
+
     print(f"Welcome to the {survey.survey_title}!")
     resp_obj = responses.Responses(survey)
 
@@ -135,3 +129,4 @@ def run_survey():
         option = safe_input(valid_range)
         resp_obj.add_question_option(question_text=question.question_text, option=option)
     resp_obj.save_responses()
+    resp_obj.analyze_responses()
