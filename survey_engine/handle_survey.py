@@ -143,6 +143,7 @@ def run_survey(get_statistics=True):
     survey = load_survey()
 
     print(f"Welcome to the {survey.survey_title}!")
+    print ()
     resp_obj = responses.Responses(survey)
 
     for idx, question in enumerate(survey.questions, start=1):
@@ -155,6 +156,7 @@ def run_survey(get_statistics=True):
             question_text=question.question_text,
             option=option
         )
+        print ()
 
     resp_obj.save_responses()
 

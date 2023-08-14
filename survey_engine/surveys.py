@@ -97,6 +97,7 @@ class Survey:
         """Print out survey to terminal"""
 
         print(self.survey_title)
+        print ()
         for idx, question in enumerate(self.questions):
             print ("\n")
             question.print(question_id=idx+1)
