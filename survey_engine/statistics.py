@@ -3,7 +3,25 @@ Utitlity methods calculating interquantile statistics
 for the survey responses
 """
 
-def calculate_quantiles(values: list[int] = None):
+def calculate_quantiles(values=None):
+    """
+    Calculate quantiles for a list of values
+
+    Parameters
+    ----------
+    values : list
+        statistic inputs, by default None
+
+    Returns
+    -------
+    tuple
+        q1, median, q3 of interquantiles
+
+    Raises
+    ------
+    ValueError
+        if empty list is provided
+    """
     if values:
         values.sort()
         input_length = len(values)
@@ -15,7 +33,21 @@ def calculate_quantiles(values: list[int] = None):
     raise ValueError("Empty values")
 
 
-def determine_position_in_quantiles(response: int, quantiles: tuple):
+def determine_position_in_quantiles(response, quantiles):
+    """
+    Find where does a value lie within interquantiles
+
+    Parameters
+    ----------
+    response : int
+        input value
+    quantiles : tuple
+        q1, median, and q3 of interquantiles
+
+    Returns
+    -------
+        str
+    """
     quant1, median, quant3 = quantiles
     msg = ""
     if response < quant1:
