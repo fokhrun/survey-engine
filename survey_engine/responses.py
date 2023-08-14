@@ -4,7 +4,7 @@
 import csv
 import os
 from dataclasses import dataclass
-from survey_engine import statistics, utils
+from survey_engine import constants, statistics, utils
 
 
 @dataclass
@@ -17,7 +17,6 @@ class QuestionOption:
 class Responses:
     """Handles response"""
     FIELDNAMES = ["Question", "Response"]
-    FILEPATH = "data"
 
     def __init__(self, survey):
         """
@@ -29,7 +28,10 @@ class Responses:
             bind response to survey
         """
         self.question_options = []
-        self.filename = os.path.join(self.FILEPATH, f"{survey.survey_title}.response")
+        self.filename = os.path.join(
+            constants.SURVEY_DIRECTORY, 
+            f"{survey.survey_title}{constants.SURVEY_RESPONSE_FILE_EXT}"
+        )
 
     def add_question_option(self, question_text, option):
         """
@@ -70,8 +72,8 @@ class Responses:
         print (response)
         responses = {}        
         for _ in response:
-            question = _["Question"]
-            response = int(_["Response"])
+            question = _[self.FIELDNAMES[0]]
+            response = int(_[self.FIELDNAMES[1]])
 
             if question not in responses:
                 responses[question] = [response]
@@ -85,17 +87,15 @@ class Responses:
 
         responses = self.load_responses()
         for question_option in self.question_options:
-            question = question_option.question
+            values = responses[question_option.question]
             option = question_option.option
-            quant1, median, quant3 = statistics.calculate_quantiles(responses[question])
+            qnt1, median, qnt3 = statistics.calculate_quantiles(values)
             position = statistics.determine_position_in_quantiles(
                 response=option,
-                quantiles=(quant1, median, quant3)
+                quantiles=(qnt1, median, qnt3)
             )
 
             print("Quantile Analysis:")
-            print(f"25th Percentile: {quant1}")
-            print(f"50th Percentile (Median): {median}")
-            print(f"75th Percentile: {quant3}")
-            print(f"Current Response: {option}")
-            print(f"Position: {position}")
+            print(f"25th, 50th, 75th Percentile: {qnt1}, {median}, {qnt3}")
+            print(f"Current Response: {option} is in Position: {position}")
+            print()

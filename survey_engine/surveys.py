@@ -2,8 +2,7 @@
 
 
 import os
-
-from survey_engine.utils import create_file_safely, utils
+from survey_engine import utils, constants
 
 
 class Question:
@@ -57,8 +56,6 @@ class Question:
 class Survey:
     """Encode survey object"""
 
-    SURVEY_DIRECTORY = "data"  # Path where survey question should be saved
-
     def __init__(self, title):
         """Initialize variables
 
@@ -83,12 +80,14 @@ class Survey:
 
     def save(self):
         """Save survey to a file"""
+
         filename = utils.convert_filename(self.survey_title)
         file_path = os.path.join(
-            self.SURVEY_DIRECTORY, 
+            constants.SURVEY_DIRECTORY, 
             f"{filename}_{len(self.questions)}.survey"
         )
-        create_file_safely(file_path)
+        utils.create_file_safely(file_path)
+
         for question in self.questions:
             question.save_question_to_file(file_path)
 
