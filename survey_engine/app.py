@@ -7,13 +7,13 @@ from survey_engine import handle_survey
 def menu():
     """Main menu"""
     while True:  # Keep running the app
-        print ()
-        print ("Survey Engine")
-        print ("-------------")
-        print ("1. Create Survey")
-        print ("2. Participate in Survey")
-        print ("3. Participate in Survey, Learn results")
-        print ()
+        print()
+        print("Survey Engine")
+        print("-------------")
+        print("1. Create Survey")
+        print("2. Participate in Survey")
+        print("3. Participate in Survey, Learn results")
+        print()
         option = int(input("Enter your choice: "))
 
         if option == 1:
@@ -23,6 +23,6 @@ def menu():
         elif option == 3:
             handle_survey.run_survey()
         else:
-            print ("\nWrong choice! Try again.\n")
+            print("\nWrong choice! Try again.\n")
 
-        print ()
+        print()

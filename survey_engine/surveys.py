@@ -85,7 +85,7 @@ class Survey:
 
         filename = utils.convert_filename(self.survey_title)
         file_path = os.path.join(
-            constants.SURVEY_DIRECTORY, 
+            constants.SURVEY_DIRECTORY,
             f"{filename}_{len(self.questions)}{constants.SURVEY_FILE_EXT}"
         )
         utils.create_file_safely(file_path)
@@ -97,8 +97,8 @@ class Survey:
         """Print out survey to terminal"""
 
         print(self.survey_title)
-        print ()
+        print()
         for idx, question in enumerate(self.questions):
-            print ("\n")
+            print("\n")
             question.print(question_id=idx+1)
-            print ()
+            print()

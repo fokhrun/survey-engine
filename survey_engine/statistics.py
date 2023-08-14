@@ -1,5 +1,6 @@
 """Utitlity methods calculating interquantile stats for survey response"""
 
+
 def calculate_quantiles(values=None):
     """
     Calculate quantiles for a list of values

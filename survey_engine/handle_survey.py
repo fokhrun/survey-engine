@@ -25,10 +25,10 @@ def create_survey():
     Raises
     ------
     ValueError
-        if number of questions chosen by a user is larger 
+        if number of questions chosen by a user is larger
         than a recommended limit
     """
-    print ()
+    print()
     survey_title = input("Enter survey title: ")
     num_questions = int(input("Enter number of questions: "))
     survey = surveys.Survey(survey_title)
@@ -42,7 +42,7 @@ def create_survey():
         survey.add_question(create_question())
 
     survey.print()
-    print ()
+    print()
     survey.save()
 
 
@@ -56,7 +56,7 @@ def load_survey(file_path="data"):
         path to find survey files
     file_extension : str
         file extension of the surveys, defaults t0 .survey
-    
+
     Returns
     -------
         Survey
@@ -67,7 +67,7 @@ def load_survey(file_path="data"):
     ]
 
     for idx, filename in enumerate(survey_names):
-        print (f"{idx + 1}. {utils.get_filename_without_extension(filename)}")
+        print(f"{idx + 1}. {utils.get_filename_without_extension(filename)}")
 
     survey_filename = survey_names[int(input("Choose survey: "))-1]
     survey = surveys.Survey(
@@ -95,9 +95,9 @@ def safe_input(valid_range, num_retries=3):
 
     Parameters
     ----------
-    valid_range : list 
+    valid_range : list
         range of values for valid options
-    num_retries : int 
+    num_retries : int
         number of times a wrong option can be provided. Defaults to 3.
 
     Raises:
@@ -117,11 +117,11 @@ def safe_input(valid_range, num_retries=3):
             remaining_trials = num_retries-attempt_no-1
 
             if remaining_trials == 0:
-                print (error_text_terminate)
+                print(error_text_terminate)
                 return None
 
             error_text = f"You have {remaining_trials} more trials!"
-            print (f"Not a valid option. Please try again! {error_text}")
+            print(f"Not a valid option. Please try again! {error_text}")
 
         else:
             return option
@@ -132,18 +132,18 @@ def safe_input(valid_range, num_retries=3):
 def run_survey(get_statistics=True):
     """
     Run survey
-    
+
     Parameters
     ----------
     get_statistics : bool
         enable statistics calculation for survey response
         defaults to True
     """
-    print ()
+    print()
     survey = load_survey()
 
     print(f"Welcome to the {survey.survey_title}!")
-    print ()
+    print()
     resp_obj = responses.Responses(survey)
 
     for idx, question in enumerate(survey.questions, start=1):
@@ -156,11 +156,11 @@ def run_survey(get_statistics=True):
             question_text=question.question_text,
             option=option
         )
-        print ()
+        print()
 
     resp_obj.save_responses()
 
     if get_statistics:
         resp_obj.analyze_responses()
 
-    print ()
+    print()

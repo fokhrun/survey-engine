@@ -7,7 +7,7 @@ from survey_engine import utils
 
 def create_file_safely(file_path, remove_if_exists=True):
     """
-    Create a file if it does not exists. 
+    Create a file if it does not exists.
     Remove if the file exists and then create it again.
 
     Parameters
@@ -25,12 +25,12 @@ def create_file_safely(file_path, remove_if_exists=True):
 
 
 def get_filename_without_extension(filename, file_extension=".survey"):
-    """For files of the pattern name.ext, get the name part. 
+    """For files of the pattern name.ext, get the name part.
 
     Parameters
     ----------
     filename : str
-        Has the expected format name.ext 
+        Has the expected format name.ext
     file_extension : str
         extension string, by default ".survey"
 
@@ -53,7 +53,7 @@ def convert_filename(name, file_or_console=True):
     name : str
         target name
     file_or_console : bool, optional
-        deciding if the name is for filename or console name, 
+        deciding if the name is for filename or console name,
         by default True indicating filename
 
     Returns

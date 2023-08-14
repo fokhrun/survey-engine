@@ -29,7 +29,7 @@ class Responses:
         """
         self.question_options = []
         self.filename = os.path.join(
-            constants.SURVEY_DIRECTORY, 
+            constants.SURVEY_DIRECTORY,
             f"{survey.survey_title}{constants.SURVEY_RESPONSE_FILE_EXT}"
         )
 
@@ -39,9 +39,9 @@ class Responses:
 
         Parameters
         ----------
-        question : str 
+        question : str
             question text
-        option : int 
+        option : int
             chosen option for the question
         """
         self.question_options.append(
@@ -68,9 +68,11 @@ class Responses:
             Response : Response encoded from csv file
         """
         with open(self.filename, "r", encoding="utf") as csvfile:
-            response = list(csv.DictReader(csvfile, fieldnames=self.FIELDNAMES))
-        
-        responses = {}        
+            response = list(
+                csv.DictReader(csvfile, fieldnames=self.FIELDNAMES)
+            )
+
+        responses = {}
         for _ in response:
             question = _[self.FIELDNAMES[0]]
             response = int(_[self.FIELDNAMES[1]])
