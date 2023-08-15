@@ -16,7 +16,35 @@ A couple of sentence how users can interact with the app
 
 ## Data Model
 
+Currently there are two main data models: 
+1. Survey 
+2. Survey Response 
+
+### Survey
+
+The survey class holds 
+- the title of the survey
+- a set of questions 
+- corresponding response options. 
+
+The class has the following methods: 
+- to save survey question as a file 
+- print survey questions in a terminal console
+- load survey questions from a file
+
+### Survey Response
+
+The survey response class binds survey objects with chosen option from response options for each question in the survey. 
+The class also has the following methods:
+- save responses to a file
+- load responses from a file
+- calculate interquintile statistics from survey responses and map the current responses on the interquintile range
+
 ## Testing
+
+I have tested the code and the deployed app manually. 
+- Tested locally and in the heroku deployment through different path of the code. It works correctly to the best of the knowledge. Improper input, wrong type or out of range, is provided to validate the code and the app while doing the testing. 
+- Evaluated PEP8 linter. All reported linting issues have been fixed. 
 
 ## Bugs
 
