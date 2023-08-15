@@ -16,23 +16,39 @@ In the case of creating survey, a user gets a prompt to provide survey name, num
 
 In the case of participating in a survey, a user can choose between two options: just participate and participate with statistic analysis report. For the case of just participating, a user given a prompt to choose from a predefined set of surveys. Then the user respond to the selected survey. In the case of participating with statistics, the additional process analyzes the response of the user compared to other responses and shares that result.
 
+The following screenshot provide the top level menu for the app. 
+
+![Top level menu](https://github.com/fokhrun/survey-engine/blob/main/images/top_menu.png)
+
 A user can create and participate unlimited number of surveys.
 
 ## Features
 
 ### Current Features
 
-There are currently three features types of feature to survey-engine:
+There are currently four features types of feature to survey-engine:
 
-2. Creating a survey
+1. Creating a survey
 2. Participating in a survey
 3. Analysing survey responses
 
-#### Create Survey
+#### Creating a survey
 
-####
+When a user selects creating a survey, the user is asked to provide a title of the survey. Then the user is asked to provide the expected number of questions in the survey. Based on that number, a repeated prompt is provided where the user first provides a question text and, then a set of response options as a set of string separated by commas. This means all survey questions are multiple choice question type. See the following screenshot as a demonstration of this feature. 
 
-####
+![Creating a survey](https://github.com/fokhrun/survey-engine/blob/main/images/create_survey.png)
+
+#### Participating in a survey 
+
+When a user selects plain participate in a survey, the user is provided a list of survey. The user needs to choose the desired survey by providing the index number. Note that, each survey name is followed by another number, which basically shows how many questions are there in the survey. When a user have chosen a survey, the questions and the response are iterated, where the user provides response for each question. Note that, only one option can be selected and no question can be skipped. Check the following screenshot that demonstrates the feature.
+
+![Participate in a survey](https://github.com/fokhrun/survey-engine/blob/main/images/participate_survey.png)
+
+#### Analysing survey responses
+
+This feature is similar to the previous feature, but it adds a process to analyze response provided by the user against the response provided by other users. The analysis is based on [interquantile range](https://en.wikipedia.org/wiki/Interquartile_range), which is a typical choice to analyze survey results. Check the following screenshot that demonstrates the feature.
+
+![Analysing survey response](https://github.com/fokhrun/survey-engine/blob/main/images/analyse_survey.png)
 
 ### Future Features
 
@@ -40,6 +56,8 @@ There are currently three features types of feature to survey-engine:
 2. Geotagging the survey responses so that current responses can be mapped with the responses within the geolocation of the survey responders.
 3. Leaderboard for top survey creators and responders.
 4. Standalone survey analytics without participating.
+5. More elegant CLI
+6. Optional questions and multiple types of response options
 
 ## Data Model
 
@@ -70,13 +88,17 @@ The class also has the following methods:
 ## Testing
 
 I have tested the code and the deployed app manually. 
-- Tested locally and in the heroku deployment through different path of the code. It works correctly to the best of the knowledge. Improper input, wrong type or out of range, is provided to validate the code and the app while doing the testing. 
-- Evaluated PEP8 linter. All reported linting issues have been fixed. 
+- Tested locally and in the heroku deployment through different path of the code. It works correctly to the best of the knowledge. Improper input, wrong type or out of range, is provided to validate the code and the app while doing the testing. The following screenshot shows how incorrect input is handled:
+
+![Handling incorrect input](https://github.com/fokhrun/survey-engine/blob/main/images/input_handling.png)
+
+
+- Evaluated PEP8 linter. All reported linting issues have been fixed.
+
+To test the code locally, run the following code, from the source code directory:
+`python run.py`
 
 ## Bugs
-
-- Path to save survey data is hardcoded
-- Survey files should have .survey extensions. No mechanism exists to enforce that.
 
 ### Solved bugs
 
@@ -88,7 +110,9 @@ The saving of response has moved out of the loop.
 
 ### Remaining bugs
 
-There is no graceful way to handle survey with the same title. If title matches an existing title, the app will replace the existing survey with the newly created ones. Ideally, survey with the same title should either get a prompt to use a different title or some additional random text should be added the survey title to make it unique.
+- There is no graceful way to handle survey with the same title. If title matches an existing title, the app will replace the existing survey with the newly created ones. Ideally, survey with the same title should either get a prompt to use a different title or some additional random text should be added the survey title to make it unique.
+
+- Survey files should have .survey and .response extensions. No mechanism exists to enforce that.
 
 ### Validator Testing
 
