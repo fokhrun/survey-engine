@@ -117,7 +117,7 @@ def run_survey(get_statistics=True):
 
         option = utils.safe_integer_input(
             valid_range=valid_range,
-            text_prompt="Choose survey: "
+            text_prompt="Choose option: "
         )
         if not option:
             return

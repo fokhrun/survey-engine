@@ -1,8 +1,6 @@
 # Survey Engine
 
-One liner what it is?
-
-A couple of sentence how users can interact with the app
+Survey engine is a Python based CLI application. It allows users to create new surveys or participate in existing surveys. Users can also check, where their responses fall compared to other survey participants. The users interact with different options in the web through a command line interface. 
 
 [Here is the live version of my project](https://survey-engine-5260bd538ecd.herokuapp.com/)
 
@@ -10,17 +8,38 @@ A couple of sentence how users can interact with the app
 
 ## How To
 
+Using the application is quite straightforward. 
+
+A user choose either to create a survey or participate in a survey. 
+
+In the case of creating survey, a user gets a prompt to provide survey name, number of questions, and a set of question and response options. 
+
+In the case of participating in a survey, a user can choose between two options: just participate and participate with statistic analysis report. For the case of just participating, a user given a prompt to choose from a predefined set of surveys. Then the user respond to the selected survey. In the case of participating with statistics, the additional process analyzes the response of the user compared to other responses and shares that result.
+
+A user can create and participate unlimited number of surveys.
+
 ## Features
 
 ### Current Features
 
+There are currently three features types of feature to survey-engine:
 
+2. Creating a survey
+2. Participating in a survey
+3. Analysing survey responses
+
+#### Create Survey
+
+####
+
+####
 
 ### Future Features
 
 1. Currently the app takes survey anonymously. User profile should be saved and connected to surveys created and responed by users.
 2. Geotagging the survey responses so that current responses can be mapped with the responses within the geolocation of the survey responders.
 3. Leaderboard for top survey creators and responders.
+4. Standalone survey analytics without participating.
 
 ## Data Model
 
