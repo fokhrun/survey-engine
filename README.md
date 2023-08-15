@@ -6,7 +6,7 @@ A couple of sentence how users can interact with the app
 
 [Here is the live version of my project](https://survey-engine-5260bd538ecd.herokuapp.com/)
 
-[survey-engine multiscreen screenshot](https://github.com/fokhrun/survey-engine/blob/main/images/survey_engine_screenshot.png)
+![survey-engine multiscreen screenshot](https://github.com/fokhrun/survey-engine/blob/main/images/survey_engine_screenshot.png)
 
 ## How To
 
