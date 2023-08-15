@@ -88,6 +88,7 @@ class Responses:
         """Analyze responses in quartiles"""
 
         responses = self.load_responses()
+        print("Quantile Analysis:")
 
         for question_option in self.question_options:
             values = responses[question_option.question]
@@ -97,8 +98,5 @@ class Responses:
                 response=option,
                 quantiles=(qnt1, median, qnt3)
             )
-
-            print("Quantile Analysis:")
-            print(f"25th, 50th, 75th Percentile: {qnt1}, {median}, {qnt3}")
-            print(f"Current Response: {option} is in Position: {position}")
-            print()
+            print(f"25th , 50th, 75th Percentile: {qnt1}, {median}, {qnt3}")
+            print(f"{question_option.question}: {option} -> Position: {position}")

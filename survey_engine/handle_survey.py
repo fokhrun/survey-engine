@@ -30,13 +30,15 @@ def create_survey():
     """
     print()
     survey_title = input("Enter survey title: ")
-    num_questions = int(input("Enter number of questions: "))
-    survey = surveys.Survey(survey_title)
+    num_questions = utils.safe_integer_input(
+        valid_range=range(1, constants.MAX_QUESTIONS + 1),
+        text_prompt="Number of questions: "
+    )
 
-    if num_questions > constants.MAX_QUESTIONS:
-        raise ValueError(
-            f"You must chooise {constants.MAX_QUESTIONS} or less"
-        )
+    if not num_questions:
+        return
+
+    survey = surveys.Survey(survey_title)
 
     for _ in range(num_questions):
         survey.add_question(create_question())
@@ -65,11 +67,14 @@ def load_survey(file_path="data"):
         _ for _ in os.listdir(file_path)
         if constants.SURVEY_FILE_EXT in _
     ]
-
     for idx, filename in enumerate(survey_names):
         print(f"{idx + 1}. {utils.get_filename_without_extension(filename)}")
 
-    survey_filename = survey_names[int(input("Choose survey: "))-1]
+    chosen_survey_idx = utils.safe_integer_input(
+        valid_range=range(1, len(survey_names) + 1)
+    ) - 1
+
+    survey_filename = survey_names[chosen_survey_idx]
     survey = surveys.Survey(
         utils.get_filename_without_extension(survey_filename)
     )
@@ -87,46 +92,6 @@ def load_survey(file_path="data"):
             )
 
     return survey
-
-
-def safe_input(valid_range, num_retries=3):
-    """
-    Handles incorrectly provided options
-
-    Parameters
-    ----------
-    valid_range : list
-        range of values for valid options
-    num_retries : int
-        number of times a wrong option can be provided. Defaults to 3.
-
-    Raises:
-        ValueError: if wrong option is provided
-
-    Returns:
-        int
-    """
-    error_text_terminate = "You have no more trials left. Exiting...!"
-
-    option = None
-
-    for attempt_no in range(num_retries):
-        option = int(input("Enter your choice: "))
-
-        if option not in valid_range:
-            remaining_trials = num_retries-attempt_no-1
-
-            if remaining_trials == 0:
-                print(error_text_terminate)
-                return None
-
-            error_text = f"You have {remaining_trials} more trials!"
-            print(f"Not a valid option. Please try again! {error_text}")
-
-        else:
-            return option
-
-    return option
 
 
 def run_survey(get_statistics=True):
@@ -148,19 +113,23 @@ def run_survey(get_statistics=True):
 
     for idx, question in enumerate(survey.questions, start=1):
         question.print(question_id=idx)
-        valid_range = range(1, len(question.response_options)+1)
-        option = safe_input(valid_range)
+        valid_range = range(1, len(question.response_options) + 1)
+
+        option = utils.safe_integer_input(
+            valid_range=valid_range,
+            text_prompt="Choose survey: "
+        )
         if not option:
             return
+
         resp_obj.add_question_option(
             question_text=question.question_text,
             option=option
         )
+
         print()
 
     resp_obj.save_responses()
 
     if get_statistics:
         resp_obj.analyze_responses()
-
-    print()

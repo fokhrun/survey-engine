@@ -1,7 +1,7 @@
 
 """Execute the app"""
 
-from survey_engine import handle_survey
+from survey_engine import handle_survey, utils
 
 
 def menu():
@@ -14,7 +14,10 @@ def menu():
         print("2. Participate in Survey")
         print("3. Participate in Survey, Learn results")
         print()
-        option = int(input("Enter your choice: "))
+
+        option = utils.safe_integer_input(valid_range=[1, 2, 3])
+        if not option:
+            continue
 
         if option == 1:
             handle_survey.create_survey()
