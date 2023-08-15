@@ -48,7 +48,7 @@ When a user selects plain participate in a survey, the user is provided a list o
 
 This feature is similar to the previous feature, but it adds a process to analyze response provided by the user against the response provided by other users. The analysis is based on [interquantile range](https://en.wikipedia.org/wiki/Interquartile_range), which is a typical choice to analyze survey results. Check the following screenshot that demonstrates the feature.
 
-![Analysing survey response](https://github.com/fokhrun/survey-engine/blob/main/images/analyse_survey.png)
+![Analysing survey response](https://github.com/fokhrun/survey-engine/blob/main/images/analyse_response.png)
 
 ### Future Features
 
