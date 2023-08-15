@@ -99,4 +99,6 @@ class Responses:
                 quantiles=(qnt1, median, qnt3)
             )
             print(f"25th , 50th, 75th Percentile: {qnt1}, {median}, {qnt3}")
-            print(f"{question_option.question}: {option} -> Position: {position}")
+            print(
+                f"{question_option.question}: {option} -> Position: {position}"
+            )
