@@ -14,6 +14,10 @@ A couple of sentence how users can interact with the app
 
 ### Future Features
 
+1. Currently the app takes survey anonymously. User profile should be saved and connected to surveys created and responed by users.
+2. Geotagging the survey responses so that current responses can be mapped with the responses within the geolocation of the survey responders.
+3. Leaderboard for top survey creators and responders.
+
 ## Data Model
 
 Currently there are two main data models: 
