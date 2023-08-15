@@ -12,6 +12,8 @@ A couple of sentence how users can interact with the app
 
 ### Current Features
 
+
+
 ### Future Features
 
 1. Currently the app takes survey anonymously. User profile should be saved and connected to surveys created and responed by users.
