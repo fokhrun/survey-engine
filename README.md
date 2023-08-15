@@ -63,6 +63,7 @@ I have tested the code and the deployed app manually.
 - The response of surveys were saved inside a loop, which led to rewriting of the same response multiple times. 
 The saving of response has moved out of the loop.
 - Filenames were taken from the survey title, which may include white spaces. This lead to issues when the files needs to be read later on. The issue was fixed by replacing the white space with undescore. The reverse is applied when the filename is used to display survey title. 
+- Wrong input could be provided that leads to code to break while choosing survey. It is fixed to handle input within the correct range. 
 
 ### Remaining bugs
 
