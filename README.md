@@ -25,9 +25,18 @@ A couple of sentence how users can interact with the app
 
 ### Solved bugs
 
+- Constants were written in multiple places. It led to inconsistent paths for files. All constants moved to a single module. 
+- The response of surveys were saved inside a loop, which led to rewriting of the same response multiple times. 
+The saving of response has moved out of the loop.
+- Filenames were taken from the survey title, which may include white spaces. This lead to issues when the files needs to be read later on. The issue was fixed by replacing the white space with undescore. The reverse is applied when the filename is used to display survey title. 
+
 ### Remaining bugs
 
+There is no graceful way to handle survey with the same title. If title matches an existing title, the app will replace the existing survey with the newly created ones. Ideally, survey with the same title should either get a prompt to use a different title or some additional random text should be added the survey title to make it unique.
+
 ### Validator Testing
+
+- PEP8: All errors identified by [Code Institute's PEP8 web app](https://pep8ci.herokuapp.com) has been fixed.
 
 ## Deployment
 
